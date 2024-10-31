@@ -18,6 +18,21 @@ class UserRepository  {
         const User = this.Users.find(u => u.id == id);
         return User
     }
+
+    updateUser(id, name email, password){
+        const user = this.getUserById(id)
+
+
+        if(!user){
+            return null
+        }
+
+        user.name = name;
+        user.email = email;
+        user.password =password;
+
+        return user
+    }
 }
    
 export default UsersRepository;

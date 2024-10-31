@@ -23,28 +23,40 @@ usuariosRoutes.post("/", (req, res) => {
 });
 
 usuariosRoutes.get("/:id", (req, res) => {
-    const { id } = req params;
+    const {id} = req.params;
     const user = usersRepository.getUserById(id);
 
     if(!user) {
         return res.status(404).json({
-        message: `Usúario com id ${id} não encontrado!`,
-        })
+        message: `Usuário com id ${id} não encontrado!`,
+        });
     }
 
     return res.status(200).json({
-        message: `Usúario com id ${id} encontrado!`,
+        message: `Usuário com id ${id} encontrado!`,
         user,
-           
-    }) 
+    });
 
-})
+});
 
-usuariosRoutes.get("/:id", (req, res) => {
+usuariosRoutes.put("/:id", (req, res) => {
+    const {id} = req.params
+    const {name, email, password} = req.body
+
+    const user = usersRepository.updateUser(id, name, email, password)
+
+    if(!user) {
+        return res.status(404).json({
+        message: `Usuário com id ${id} não encontrado!`,
+        });
+    }
     
-})
+    return res.status(200).json({
+        message: `Usuário com id ${id} atualizado com sucesso!!`
+    })
+});
 
-usuariosRoutes.get("/:id", (req, res) => {
+usuariosRoutes.delete("/:id", (req, res) => {
     
 })
 export default usuariosRoutes;
