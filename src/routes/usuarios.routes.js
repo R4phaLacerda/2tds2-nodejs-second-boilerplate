@@ -52,11 +52,25 @@ usuariosRoutes.put("/:id", (req, res) => {
     }
     
     return res.status(200).json({
-        message: `Usuário com id ${id} atualizado com sucesso!!`
+        message: `Usuário com id ${id} atualizado com sucesso!!`,
+        user,
     })
 });
 
 usuariosRoutes.delete("/:id", (req, res) => {
+    const {id} = req.params
+    const user = usersRepository.deleteUser(id)
+
+    if (!user) {
+        return res.status(404).json({
+            message: `Usuário com id ${id} não encontrado!`,
+            });
+    }
+
+    return res.status(200).json({
+        message: `Usuário com id ${id} atualizado com sucesso!!`,
+        user,
+    })
     
 })
 export default usuariosRoutes;
